@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private GameState gameState;
+
     void Start()
     {
-        
+        StartCoroutine(BrainSpawner(10f));
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator BrainSpawner(float waitTime)
     {
-        
+        while (true)
+        {
+
+
+
+
+            yield return new WaitForSeconds(waitTime);
+        }
     }
 }
