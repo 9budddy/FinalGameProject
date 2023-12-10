@@ -227,6 +227,10 @@ public class PlayerMovementScript : MonoBehaviour
             }
            
         }
+        if (gameState.position != transform.position)
+        {
+            gameState.position = transform.position;
+        }
     }
 
     IEnumerator CanAttack()

@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "gameState", menuName = "Assets/GameState")]
 public class GameState : ScriptableObject
 {
+    public Vector3 position { get; set; }
     public int selected { get; set; }
     public bool canAttack { get; set; }
     public bool attack { get; set; }
@@ -12,5 +13,7 @@ public class GameState : ScriptableObject
     public bool changeWeapon { get; set; }
     public bool sword { get; set; }
     public bool bow { get; set; }
-    public Dictionary<string, Vector3> enemies { get; set; }
+    public Dictionary<string, Vector3> flyingbrains { get; set; }
+    public Dictionary<string, Vector3> ghosts { get; set; }
+
 }
