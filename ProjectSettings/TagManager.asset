@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bow
   - Sword
+  - Arrow
   layers:
   - Default
   - TransparentFX
@@ -40,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: TileMap
+    uniqueID: 1293323373
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
