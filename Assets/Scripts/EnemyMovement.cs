@@ -13,6 +13,7 @@ public class EnemyMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private PlayerAwarenessController playerAwarenessController;
+
     private Vector2 targetDirection;
     private float changeDirectionCooldown;
     private Camera cam;
@@ -20,12 +21,14 @@ public class EnemyMovement : MonoBehaviour
     private void Start()
     {
         speed = 0.2f;
+
     }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerAwarenessController = GetComponent<PlayerAwarenessController>();
+
         targetDirection = transform.up;
         cam = Camera.main;
     }
@@ -68,7 +71,6 @@ public class EnemyMovement : MonoBehaviour
             {
                 speed = maxSpeed;
             }
-
             targetDirection = playerAwarenessController.DirectionToPlayer;
         }
         else

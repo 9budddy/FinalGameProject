@@ -9,10 +9,15 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject flyingBrain, ghost;
     [SerializeField] private GameObject player;
 
+    public List<string> bN;
+    public List<string> gN;
+
     void Start()
     {
         gameState.flyingbrains = new Dictionary<string, Vector3>();
+        gameState.flyingbrainsName = new List<string>();
         gameState.ghosts = new Dictionary<string, Vector3>();
+        gameState.ghostNames = new List<string>();
         StartCoroutine(FlyingBrainSpawner(8f, 12f));
         StartCoroutine(GhostSpawner(8f, 12f));
     }
@@ -26,13 +31,14 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            if (gameState.flyingbrains.Count <= 10)
+            if (gameState.flyingbrainsName.Count < 10)
             {
                 GameObject obj = Instantiate(flyingBrain, getRange(), Quaternion.identity);
                 string name = "flyingbrain-" + System.Guid.NewGuid().ToString();
                 obj.name = name;
 
                 gameState.flyingbrains.Add(obj.name, obj.transform.position);
+                gameState.flyingbrainsName.Add(obj.name);
             }
 
             float waitTime = Random.Range(a, b);
@@ -44,13 +50,14 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            if (gameState.ghosts.Count <= 10)
+            if (gameState.ghostNames.Count < 10)
             {
                 GameObject obj = Instantiate(ghost, getRange(), Quaternion.identity);
                 string name = "ghost-" + System.Guid.NewGuid().ToString();
                 obj.name = name;
 
                 gameState.ghosts.Add(obj.name, obj.transform.position);
+                gameState.ghostNames.Add(obj.name);
             }
 
             float waitTime = Random.Range(a, b);
@@ -79,5 +86,17 @@ public class EnemySpawner : MonoBehaviour
             y = Random.Range(-20f, 60f);
         }
         return new Vector3(x, y);
-    } 
+    }
+
+    internal void RemoveBrain(string name)
+    {
+        gameState.flyingbrains.Remove(name);
+        gameState.flyingbrainsName.Remove(name);
+    }
+
+    internal void RemoveGhost(string name)
+    {
+        gameState.ghosts.Remove(name);
+        gameState.ghostNames.Remove(name);
+    }
 }

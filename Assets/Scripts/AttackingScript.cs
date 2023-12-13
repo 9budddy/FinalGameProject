@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AttackingScript : MonoBehaviour
@@ -17,11 +18,12 @@ public class AttackingScript : MonoBehaviour
 
     private Animator animator;
 
-    //TESTING
-    [SerializeField] GameObject enemy;
 
     void Start()
     {
+        gameState.flyingbrains = new Dictionary<string, Vector3>();
+        gameState.ghosts = new Dictionary<string, Vector3>();
+        gameState.hits = new Dictionary<string, int>();
         arrows = new List<GameObject>();
         animator = GetComponent<Animator>();
     }
@@ -49,51 +51,186 @@ public class AttackingScript : MonoBehaviour
     {
         while (swordSwing)
         {
+            if (gameState.flyingbrains == null)
+            {
+                
+            }
             yield return new WaitForSeconds(0.6f);
             Vector3 pos = transform.position;
-            /*foreach (string name in gameState.enemies.Keys) {
-                GameObject obj = GameObject.Find(name);
-                if (Vector3.Distance(obj.transform.position, pos) <= 2.5f)
-                {
-
-                }
-            }*/
-
-            //---TESTING
-            Vector3 enemyPos = enemy.transform.position;
-            if (Vector3.Distance(enemyPos, pos) <= 3.5f)
+            Dictionary<string, Vector3>.KeyCollection names = gameState.flyingbrains.Keys;
+            foreach (string name in names)
             {
-                int state = animator.GetInteger("state");
-                if (state == 0)
+                GameObject enemy = GameObject.Find(name);
+                if (enemy == null)
                 {
-                    if (transform.localScale.x == -1)
+                    continue;
+                }
+                Vector3 enemyPos = enemy.transform.position;
+                if (Vector3.Distance(enemyPos, pos) <= 5f)
+                {
+                    int state = animator.GetInteger("state");
+                    if (state == 0)
                     {
-                        if (enemyPos.x >= pos.x)
+                        if (transform.localScale.x == -1)
                         {
-                            Debug.Log("Hit Right");
+                            if (enemyPos.x >= pos.x)
+                            {
+                                if (!gameState.hits.ContainsKey(name))
+                                {
+                                    gameState.hits.Add(name, 1);
+                                }
+                                else
+                                {
+                                    int hits = gameState.hits.GetValueOrDefault(name);
+                                    gameState.hits.Remove(name);
+                                    gameState.hits.Add(name, hits + 1);
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            if (enemyPos.x <= pos.x)
+                            {
+                                if (!gameState.hits.ContainsKey(name))
+                                {
+                                    gameState.hits.Add(name, 1);
+                                }
+                                else
+                                {
+                                    int hits = gameState.hits.GetValueOrDefault(name);
+                                    gameState.hits.Remove(name);
+                                    gameState.hits.Add(name, hits + 1);
+                                }
+                            }
                         }
                     }
-                    else
+                    else if (state == 1)
                     {
-                        if (enemyPos.x <= pos.x)
+                        if (enemyPos.y >= pos.y)
                         {
-                            Debug.Log("Hit Left");
+                            if (!gameState.hits.ContainsKey(name))
+                            {
+                                gameState.hits.Add(name, 1);
+                            }
+                            else
+                            {
+                                int hits = gameState.hits.GetValueOrDefault(name);
+                                gameState.hits.Remove(name);
+                                gameState.hits.Add(name, hits + 1);
+                            }
+                        }
+                    }
+                    else if (state == 2)
+                    {
+                        if (enemyPos.y <= pos.y)
+                        {
+                            if (!gameState.hits.ContainsKey(name))
+                            {
+                                gameState.hits.Add(name, 1);
+                            }
+                            else
+                            {
+                                int hits = gameState.hits.GetValueOrDefault(name);
+                                gameState.hits.Remove(name);
+                                gameState.hits.Add(name, hits + 1);
+                            }
                         }
                     }
                 }
-                else if (state == 1)
+                if (gameState.hits.GetValueOrDefault(name) == 4)
                 {
-                    if (enemyPos.y >= pos.y)
+                    gameState.hits.Remove(name);
+                    gameState.flyingbrainsName.Remove(name);
+                    Destroy(enemy);
+                }
+            }
+
+            names = gameState.ghosts.Keys;
+            foreach (string name in names)
+            {
+                GameObject enemy = GameObject.Find(name);
+                if (enemy == null)
+                {
+                    continue;
+                }
+                Vector3 enemyPos = enemy.transform.position;
+                if (Vector3.Distance(enemyPos, pos) <= 5f)
+                {
+                    int state = animator.GetInteger("state");
+                    if (state == 0)
                     {
-                        Debug.Log("Hit Up");
+                        if (transform.localScale.x == -1)
+                        {
+                            if (enemyPos.x >= pos.x)
+                            {
+                                if (!gameState.hits.ContainsKey(name))
+                                {
+                                    gameState.hits.Add(name, 1);
+                                }
+                                else
+                                {
+                                    int hits = gameState.hits.GetValueOrDefault(name);
+                                    gameState.hits.Remove(name);
+                                    gameState.hits.Add(name, hits + 1);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (enemyPos.x <= pos.x)
+                            {
+                                if (!gameState.hits.ContainsKey(name))
+                                {
+                                    gameState.hits.Add(name, 1);
+                                }
+                                else
+                                {
+                                    int hits = gameState.hits.GetValueOrDefault(name);
+                                    gameState.hits.Remove(name);
+                                    gameState.hits.Add(name, hits + 1);
+                                }
+                            }
+                        }
+                    }
+                    else if (state == 1)
+                    {
+                        if (enemyPos.y >= pos.y)
+                        {
+                            if (!gameState.hits.ContainsKey(name))
+                            {
+                                gameState.hits.Add(name, 1);
+                            }
+                            else
+                            {
+                                int hits = gameState.hits.GetValueOrDefault(name);
+                                gameState.hits.Remove(name);
+                                gameState.hits.Add(name, hits + 1);
+                            }
+                        }
+                    }
+                    else if (state == 2)
+                    {
+                        if (enemyPos.y <= pos.y)
+                        {
+                            if (!gameState.hits.ContainsKey(name))
+                            {
+                                gameState.hits.Add(name, 1);
+                            }
+                            else
+                            {
+                                int hits = gameState.hits.GetValueOrDefault(name);
+                                gameState.hits.Remove(name);
+                                gameState.hits.Add(name, hits + 1);
+                            }
+                        }
                     }
                 }
-                else if (state == 2)
+                if (gameState.hits.GetValueOrDefault(name) == 3)
                 {
-                    if (enemyPos.y <= pos.y)
-                    {
-                        Debug.Log("Hit Down");
-                    }
+                    gameState.hits.Remove(name);
+                    gameState.ghostNames.Remove(name);
+                    Destroy(enemy);
                 }
             }
             yield return new WaitForSeconds(0.6f);

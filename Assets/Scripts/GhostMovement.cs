@@ -9,6 +9,8 @@ public class GhostMovement : MonoBehaviour
     void Update()
     {
         Vector3 lastPos = gameState.ghosts.GetValueOrDefault(name);
+        
+        
         if (transform.position != lastPos)
         {
             gameState.ghosts.Remove(name);

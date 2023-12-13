@@ -192,7 +192,7 @@ public class PlayerMovementScript : MonoBehaviour
                     {
 
                         overlaySR.enabled = true;
-                        weaponSR.sortingOrder = 1;
+                        weaponSR.sortingOrder = 2;
                     }
                 }
 

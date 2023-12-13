@@ -15,5 +15,8 @@ public class GameState : ScriptableObject
     public bool bow { get; set; }
     public Dictionary<string, Vector3> flyingbrains { get; set; }
     public Dictionary<string, Vector3> ghosts { get; set; }
+    public List<string> flyingbrainsName { get; set; }
+    public List<string> ghostNames { get; set; }
+    public Dictionary<string, int> hits { get; set; }
 
 }

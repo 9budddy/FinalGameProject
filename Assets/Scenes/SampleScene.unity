@@ -6984,7 +6984,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: 1330dc2950632224ebf35f4b63c83fc9, type: 2}
   arrow: {fileID: 1926713656329148465, guid: 2bc6405a11ec4987a7e1a19447b26847, type: 3}
-  enemy: {fileID: 8285461085391880039, guid: ef590363169b35e4aab83077cdbbe092, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
