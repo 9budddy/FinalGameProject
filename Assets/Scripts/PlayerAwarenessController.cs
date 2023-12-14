@@ -16,6 +16,7 @@ public class PlayerAwarenessController : MonoBehaviour
     private ShotCollider shotCollider;
     private float timer;
     private int state;
+    private int count = 0;
 
     [SerializeField] private GameState gameState;
     public bool shooting { get; set; }
@@ -44,7 +45,11 @@ public class PlayerAwarenessController : MonoBehaviour
             if (!shooting)
             {
                 shooting = true;
-                StartCoroutine(StartShooting());
+                count += 1;
+                if (count == 1)
+                {
+                    StartCoroutine(StartShooting());
+                }
             }
             AwareOfPlayer = true;
         }
@@ -54,7 +59,11 @@ public class PlayerAwarenessController : MonoBehaviour
             if (!shooting)
             {
                 shooting = true;
-                StartCoroutine(StartShooting());
+                count += 1;
+                if (count == 1)
+                {
+                    StartCoroutine(StartShooting());
+                }
             }
         }
         else
@@ -69,7 +78,10 @@ public class PlayerAwarenessController : MonoBehaviour
             {
                 timer += Time.deltaTime;
             }
-            shooting = false;
+            else
+            {
+                shooting = false;
+            }
         }
     }
 
@@ -79,6 +91,7 @@ public class PlayerAwarenessController : MonoBehaviour
     {
         while (shooting)
         {
+            count = 0;
             shotCollider.shooting(name, this, state);
             if (name.StartsWith("ghost"))
             {

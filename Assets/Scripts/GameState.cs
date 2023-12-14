@@ -18,5 +18,5 @@ public class GameState : ScriptableObject
     public List<string> flyingbrainsName { get; set; }
     public List<string> ghostNames { get; set; }
     public Dictionary<string, int> hits { get; set; }
-
+    public bool bossInvulnerable { get; set; }
 }

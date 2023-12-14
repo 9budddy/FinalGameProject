@@ -6656,6 +6656,7 @@ GameObject:
   - component: {fileID: 1860729993}
   - component: {fileID: 1860729992}
   - component: {fileID: 1860729994}
+  - component: {fileID: 1860729995}
   m_Layer: 0
   m_Name: Bow
   m_TagString: Bow
@@ -6775,6 +6776,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4418666, y: 1.7178745}
   m_EdgeRadius: 0
+--- !u!114 &1860729995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860729991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac5fd2c743925347a6f46036306d4e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: 1330dc2950632224ebf35f4b63c83fc9, type: 2}
+  weapon: {fileID: 5834854705164625613}
+  animator: {fileID: 5834854705164625616}
+  weaponAnimator: {fileID: 5834854705164625615}
+  overlayAnimator: {fileID: 5834854705164625614}
 --- !u!1 &2143846869
 GameObject:
   m_ObjectHideFlags: 0
@@ -6984,6 +7002,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: 1330dc2950632224ebf35f4b63c83fc9, type: 2}
   arrow: {fileID: 1926713656329148465, guid: 2bc6405a11ec4987a7e1a19447b26847, type: 3}
+--- !u!212 &5834854705164625613 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7851591003349942724, guid: 7ac67c017b03d1d4889ab5189939b487, type: 3}
+  m_PrefabInstance: {fileID: 5834854705164625610}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5834854705164625614 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6912817560403717245, guid: 7ac67c017b03d1d4889ab5189939b487, type: 3}
+  m_PrefabInstance: {fileID: 5834854705164625610}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5834854705164625615 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5888857506764643627, guid: 7ac67c017b03d1d4889ab5189939b487, type: 3}
+  m_PrefabInstance: {fileID: 5834854705164625610}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5834854705164625616 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2022743413026765798, guid: 7ac67c017b03d1d4889ab5189939b487, type: 3}
+  m_PrefabInstance: {fileID: 5834854705164625610}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -18,8 +19,22 @@ public class EnemySpawner : MonoBehaviour
         gameState.flyingbrainsName = new List<string>();
         gameState.ghosts = new Dictionary<string, Vector3>();
         gameState.ghostNames = new List<string>();
-        StartCoroutine(FlyingBrainSpawner(8f, 12f));
-        StartCoroutine(GhostSpawner(8f, 12f));
+        if (gameState.bow)
+        {
+            StartCoroutine(FlyingBrainSpawner(2f, 6f));
+            StartCoroutine(GhostSpawner(2f, 6f));
+        }
+        else if (gameState.sword)
+        {
+            StartCoroutine(FlyingBrainSpawner(6f, 12f));
+            StartCoroutine(GhostSpawner(6f, 12f));
+        }
+        else
+        {
+            StartCoroutine(FlyingBrainSpawner(6f, 12f));
+            StartCoroutine(GhostSpawner(6f, 12f));
+        }
+
     }
 
 /*    void OnDrawGizmos()
@@ -92,11 +107,23 @@ public class EnemySpawner : MonoBehaviour
     {
         gameState.flyingbrains.Remove(name);
         gameState.flyingbrainsName.Remove(name);
+        AddKilled();
     }
 
     internal void RemoveGhost(string name)
     {
         gameState.ghosts.Remove(name);
         gameState.ghostNames.Remove(name);
+        AddKilled();
+    }
+
+    private int killed = 0;
+    internal void AddKilled()
+    {
+        killed++;
+        if (killed == 20)
+        {
+            SceneManager.LoadScene("BossFight");
+        }
     }
 }

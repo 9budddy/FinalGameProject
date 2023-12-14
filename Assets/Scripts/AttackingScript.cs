@@ -17,7 +17,7 @@ public class AttackingScript : MonoBehaviour
     private List<GameObject> arrows;
 
     private Animator animator;
-
+    [SerializeField] private EnemySpawner enemySpawner;
 
     void Start()
     {
@@ -51,10 +51,7 @@ public class AttackingScript : MonoBehaviour
     {
         while (swordSwing)
         {
-            if (gameState.flyingbrains == null)
-            {
-                
-            }
+
             yield return new WaitForSeconds(0.6f);
             Vector3 pos = transform.position;
             Dictionary<string, Vector3>.KeyCollection names = gameState.flyingbrains.Keys;
@@ -85,7 +82,9 @@ public class AttackingScript : MonoBehaviour
                                     gameState.hits.Remove(name);
                                     gameState.hits.Add(name, hits + 1);
                                 }
-
+                                FloatingHealth2 floatingHealth = enemy.GetComponentInChildren<FloatingHealth2>();
+                                floatingHealth.UpdateHealthBar("sword", "brain");
+                                
                             }
                         }
                         else
@@ -102,6 +101,8 @@ public class AttackingScript : MonoBehaviour
                                     gameState.hits.Remove(name);
                                     gameState.hits.Add(name, hits + 1);
                                 }
+                                FloatingHealth2 floatingHealth = enemy.GetComponentInChildren<FloatingHealth2>();
+                                floatingHealth.UpdateHealthBar("sword", "brain");
                             }
                         }
                     }
@@ -119,6 +120,8 @@ public class AttackingScript : MonoBehaviour
                                 gameState.hits.Remove(name);
                                 gameState.hits.Add(name, hits + 1);
                             }
+                            FloatingHealth2 floatingHealth = enemy.GetComponentInChildren<FloatingHealth2>();
+                            floatingHealth.UpdateHealthBar("sword", "brain");
                         }
                     }
                     else if (state == 2)
@@ -135,6 +138,8 @@ public class AttackingScript : MonoBehaviour
                                 gameState.hits.Remove(name);
                                 gameState.hits.Add(name, hits + 1);
                             }
+                            FloatingHealth2 floatingHealth = enemy.GetComponentInChildren<FloatingHealth2>();
+                            floatingHealth.UpdateHealthBar("sword", "brain");
                         }
                     }
                 }
@@ -143,6 +148,7 @@ public class AttackingScript : MonoBehaviour
                     gameState.hits.Remove(name);
                     gameState.flyingbrainsName.Remove(name);
                     Destroy(enemy);
+                    enemySpawner.AddKilled();
                 }
             }
 
@@ -174,6 +180,8 @@ public class AttackingScript : MonoBehaviour
                                     gameState.hits.Remove(name);
                                     gameState.hits.Add(name, hits + 1);
                                 }
+                                FloatingHealth2 floatingHealth = enemy.GetComponentInChildren<FloatingHealth2>();
+                                floatingHealth.UpdateHealthBar("sword", "ghost");
                             }
                         }
                         else
@@ -190,6 +198,8 @@ public class AttackingScript : MonoBehaviour
                                     gameState.hits.Remove(name);
                                     gameState.hits.Add(name, hits + 1);
                                 }
+                                FloatingHealth2 floatingHealth = enemy.GetComponentInChildren<FloatingHealth2>();
+                                floatingHealth.UpdateHealthBar("sword", "ghost");
                             }
                         }
                     }
@@ -207,6 +217,8 @@ public class AttackingScript : MonoBehaviour
                                 gameState.hits.Remove(name);
                                 gameState.hits.Add(name, hits + 1);
                             }
+                            FloatingHealth2 floatingHealth = enemy.GetComponentInChildren<FloatingHealth2>();
+                            floatingHealth.UpdateHealthBar("sword", "ghost");
                         }
                     }
                     else if (state == 2)
@@ -223,6 +235,8 @@ public class AttackingScript : MonoBehaviour
                                 gameState.hits.Remove(name);
                                 gameState.hits.Add(name, hits + 1);
                             }
+                            FloatingHealth2 floatingHealth = enemy.GetComponentInChildren<FloatingHealth2>();
+                            floatingHealth.UpdateHealthBar("sword", "ghost");
                         }
                     }
                 }
@@ -231,6 +245,7 @@ public class AttackingScript : MonoBehaviour
                     gameState.hits.Remove(name);
                     gameState.ghostNames.Remove(name);
                     Destroy(enemy);
+                    enemySpawner.AddKilled();
                 }
             }
             yield return new WaitForSeconds(0.6f);
@@ -333,7 +348,7 @@ public class AttackingScript : MonoBehaviour
 
     IEnumerator StartDestroy(GameObject nA) {
         
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         if (nA != null)
         {
             arrows.Remove(nA);

@@ -34,6 +34,17 @@ public class ArrowCollider : MonoBehaviour
             else
             {
                 arrowNames.Add(aname);
+                if (name.StartsWith("flying"))
+                {
+                    FloatingHealth2 floatingHealth = GetComponentInChildren<FloatingHealth2>();
+                    floatingHealth.UpdateHealthBar("bow", "brain");
+                }
+                else if (name.StartsWith("ghost"))
+                {
+                    FloatingHealth2 floatingHealth = GetComponentInChildren<FloatingHealth2>();
+                    floatingHealth.UpdateHealthBar("bow", "ghost");
+                }
+
 
                 //Destroy Enemy
                 if (arrowNames.Count == hits)

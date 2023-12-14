@@ -11,7 +11,7 @@ public class PlayerMovementScript : MonoBehaviour
     private bool holdAttackingDir;
     private int currentPlayerState = 0;
 
-    private float speed = 8f;
+    private float speed;
     private int direction = 1;
     private Vector3 movement;
 
@@ -27,6 +27,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Start()
     {
+        speed = 8f;
         holdAttackingDir = false;
         gameState.canAttack = false;
         gameState.attack = false;
@@ -46,6 +47,18 @@ public class PlayerMovementScript : MonoBehaviour
 
     void Update()
     {
+        if (gameState.bow && speed != 6f)
+        {
+            speed = 6f;
+        }
+        else if (gameState.sword && speed != 8f)
+        {
+            speed = 8f;
+        }
+        else if (!gameState.bow && !gameState.sword && speed != 8f)
+        {
+            speed = 8f;
+        }
         if (gameState.haltInput)
         {
             rb.velocity = Vector3.zero;
