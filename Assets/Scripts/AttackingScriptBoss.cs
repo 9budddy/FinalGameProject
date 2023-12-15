@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AttackingScriptBoss : MonoBehaviour
 {
@@ -22,13 +23,17 @@ public class AttackingScriptBoss : MonoBehaviour
 
     void Start()
     {
+        gameState.endGame = false;
         arrows = new List<GameObject>();
         animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-
+        if (gameState.endGame)
+        {
+            StartCoroutine(StartEndGame());
+        }
         if (gameState.attack)
         {
             if (gameState.bow && !arrowSpawned)
@@ -51,59 +56,63 @@ public class AttackingScriptBoss : MonoBehaviour
         {
 
             yield return new WaitForSeconds(0.6f);
-            Vector3 pos = transform.position;
-            GameObject enemy = Boss;
-            if (enemy == null)
+            if (!gameState.bossInvulnerable)
             {
-                continue;
-            }
-            Vector3 enemyPos = enemy.transform.position;
-            if (Vector3.Distance(enemyPos, pos) <= 5f)
-            {
-                int state = animator.GetInteger("state");
-                if (state == 0)
+                Vector3 pos = transform.position;
+                GameObject enemy = Boss;
+                if (enemy == null)
                 {
-                    if (transform.localScale.x == -1)
+                    continue;
+                }
+                Vector3 enemyPos = enemy.transform.position;
+                if (Vector3.Distance(enemyPos, pos) <= 5f)
+                {
+                    int state = animator.GetInteger("state");
+                    if (state == 0)
                     {
-                        if (enemyPos.x >= pos.x)
+                        if (transform.localScale.x == -1)
+                        {
+                            if (enemyPos.x >= pos.x)
+                            {
+                                hits += 1;
+                                FloatingBossHealth floatingHealth = enemy.GetComponentInChildren<FloatingBossHealth>();
+                                floatingHealth.UpdateHealthBar("sword");
+                            }
+                        }
+                        else
+                        {
+                            if (enemyPos.x <= pos.x)
+                            {
+                                hits += 1;
+                                FloatingBossHealth floatingHealth = enemy.GetComponentInChildren<FloatingBossHealth>();
+                                floatingHealth.UpdateHealthBar("sword");
+                            }
+                        }
+                    }
+                    else if (state == 1)
+                    {
+                        if (enemyPos.y >= pos.y)
                         {
                             hits += 1;
                             FloatingBossHealth floatingHealth = enemy.GetComponentInChildren<FloatingBossHealth>();
                             floatingHealth.UpdateHealthBar("sword");
                         }
                     }
-                    else
+                    else if (state == 2)
                     {
-                        if (enemyPos.x <= pos.x)
+                        if (enemyPos.y <= pos.y)
                         {
                             hits += 1;
                             FloatingBossHealth floatingHealth = enemy.GetComponentInChildren<FloatingBossHealth>();
                             floatingHealth.UpdateHealthBar("sword");
                         }
                     }
-                }
-                else if (state == 1)
-                {
-                    if (enemyPos.y >= pos.y)
-                    {
-                        hits += 1;
-                        FloatingBossHealth floatingHealth = enemy.GetComponentInChildren<FloatingBossHealth>();
-                        floatingHealth.UpdateHealthBar("sword");
-                    }
-                }
-                else if (state == 2)
-                {
-                    if (enemyPos.y <= pos.y)
-                    {
-                        hits += 1;
-                        FloatingBossHealth floatingHealth = enemy.GetComponentInChildren<FloatingBossHealth>();
-                        floatingHealth.UpdateHealthBar("sword");
-                    }
-                }
 
-                if (hits == 15)
-                {   
-                    Destroy(enemy);
+                    if (hits == 12)
+                    {
+                        StartCoroutine(StartEndGame());
+                        Destroy(enemy);
+                    }
                 }
             }
             yield return new WaitForSeconds(0.6f);
@@ -213,5 +222,11 @@ public class AttackingScriptBoss : MonoBehaviour
             arrows.Remove(nA);
             Destroy(nA);
         }
+    }
+
+    public IEnumerator StartEndGame()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Congrats");
     }
 }

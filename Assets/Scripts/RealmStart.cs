@@ -17,11 +17,11 @@ public class RealmStart : MonoBehaviour
         }
         else if (gameState.sword)
         {
-            SceneManager.LoadScene("Realm");
+            SceneManager.LoadScene("EnterRealm");
         }
         else if (gameState.bow)
         {
-            SceneManager.LoadScene("Realm");
+            SceneManager.LoadScene("EnterRealm");
         }
     }
 

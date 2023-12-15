@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +11,7 @@ public class PlayerDamageCollider : MonoBehaviour
     float health, maxHealth;
     float regenTimer = 0.0f;
 
+    private bool blackHole = true; 
     [SerializeField] private FloatingHealth floatingHealth;
 
     void Start()
@@ -102,6 +105,34 @@ public class PlayerDamageCollider : MonoBehaviour
             }
             Destroy(collision.gameObject);
         }
+        if (collision.tag == "BlackHole" && blackHole)
+        {
+            blackHole = false;
+            StartCoroutine(BlackHoldDamage());
+            if (gameState.bow)
+            {
+                health -= 3f;
+            }
+            else if (gameState.sword)
+            {
+                health -= 2f;
+            }
+            else
+            {
+                health -= 5f;
+            }
+            floatingHealth.UpdateHealthBar(health, maxHealth);
+            if (health <= 0)
+            {
+                SceneManager.LoadScene("SampleScene");
+            }
+        }
+    }
+
+    IEnumerator BlackHoldDamage()
+    {
+        yield return new WaitForSeconds(2f);
+        blackHole = true;
     }
 
     private void Update()

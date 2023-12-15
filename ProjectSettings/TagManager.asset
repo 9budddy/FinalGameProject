@@ -10,6 +10,7 @@ TagManager:
   - BrainShot
   - GhostShot
   - FireBall
+  - BlackHole
   layers:
   - Default
   - TransparentFX

@@ -39,6 +39,7 @@ public class ArrowBossCollider : MonoBehaviour
                     //Destroy Enemy
                     if (arrowNames.Count == hits)
                     {
+                        gameState.endGame = true;
                         Destroy(gameObject);
                     }
                 }

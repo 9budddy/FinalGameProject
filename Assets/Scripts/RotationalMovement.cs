@@ -51,7 +51,6 @@ public class RotationalMovement : MonoBehaviour
 
     private void StartRotation()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
         transform.position = Vector3.MoveTowards(transform.position, paths[i], 5f * Time.deltaTime);
 
     }

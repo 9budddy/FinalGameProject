@@ -13,6 +13,11 @@ public class FloatingBossHealth : MonoBehaviour
     float currentHealth = 180;
     float maxHealth = 180;
 
+    private void Start()
+    {
+        slider.value = currentHealth / maxHealth;
+    }
+
 
     public void UpdateHealthBar(string weapon)
     {
@@ -20,7 +25,7 @@ public class FloatingBossHealth : MonoBehaviour
         {
             if (weapon == "sword")
             {
-                currentHealth -= 12;
+                currentHealth -= 15;
             }
             if (weapon == "bow")
             {

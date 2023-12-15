@@ -10,6 +10,11 @@ public class FloatingHealth : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private TextMeshProUGUI hpText;
 
+    private void Awake()
+    {
+        slider.value = 1;
+    }
+
     public void UpdateHealthBar(float currentValue, float maxValue)
     {
         slider.value = currentValue / maxValue;

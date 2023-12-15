@@ -123,7 +123,7 @@ public class EnemySpawner : MonoBehaviour
         killed++;
         if (killed == 20)
         {
-            SceneManager.LoadScene("BossFight");
+            SceneManager.LoadScene("BossSummon");
         }
     }
 }

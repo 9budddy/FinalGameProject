@@ -15,9 +15,18 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/EnterRealm.unity
+    guid: a77dd266346389b439f3160387628ee4
+  - enabled: 1
     path: Assets/Scenes/Realm.unity
     guid: 720ba8d8774e52849b6311cda73ca967
   - enabled: 1
+    path: Assets/Scenes/BossSummon.unity
+    guid: 5cac680657748be4bb75938f51c0454d
+  - enabled: 1
     path: Assets/Scenes/BossFight.unity
     guid: 5b39636bd301cd24ab5ce844be1c12e8
+  - enabled: 1
+    path: Assets/Scenes/Congrats.unity
+    guid: cc8e5d5cdc425c0439d70c82a36716d9
   m_configObjects: {}

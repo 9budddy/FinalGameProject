@@ -19,4 +19,5 @@ public class GameState : ScriptableObject
     public List<string> ghostNames { get; set; }
     public Dictionary<string, int> hits { get; set; }
     public bool bossInvulnerable { get; set; }
+    public bool endGame { get; set; }
 }
